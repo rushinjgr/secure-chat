@@ -62,11 +62,11 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
             //storing the resulting object in a SympCipher Variable
             if(Pref.compareToIgnoreCase("Sub")==0){
                 //substitution
-                System.out.println("Substitution Encryption enabled.")
+                System.out.println("Substitution Encryption enabled.");
                 ciph = new Substitute();
             }else{
                 //add 128
-                System.out.println("Add128 Encryption enabled.")
+                System.out.println("Add128 Encryption enabled.");
                 ciph = new Add128();
             }
             //it gets the key from the cipher object using the getKey method
@@ -87,7 +87,7 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
             //encryption will be done using encode() method of SymCipher
             //resulting array of bytes sent to server as a single object
             //using the ObjectOutputStream
-            myWriter.write(ciph.encode(myName));
+            myWriter.writeObject(ciph.encode(myName));
             this.setTitle(myName);	  // Set title to identify chatter
 
             Box b = Box.createHorizontalBox();  // Set up graphical environment for
@@ -114,7 +114,12 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
                     new WindowAdapter()
                     {
                         public void windowClosing(WindowEvent e)
-                        { myWriter.println("CLIENT CLOSING");
+                        {
+                            try {
+                                myWriter.writeObject(new String("CLIENT CLOSING"));
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
                             System.exit(0);
                         }
                     }
@@ -126,7 +131,9 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
         }
         catch (Exception e)
         {
-            System.out.println("Problem starting client!");
+            System.out.println("Oh noes");
+            e.printStackTrace(System.err);
+            //System.out.println("Problem starting client!");
         }
     }
 
@@ -135,7 +142,7 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
         while (true)
         {
             try {
-                String currMsg = myReader.readLine();
+                String currMsg = ciph.decode(myReader.readLine().getBytes());
                 outputArea.append(currMsg+"\n");
             }
             catch (Exception e)
@@ -151,7 +158,11 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
     {
         String currMsg = e.getActionCommand();	  // Get input value
         inputField.setText("");
-        myWriter.println(myName + ":" + currMsg);   // Add name and send it
+        try {
+            myWriter.writeObject(ciph.encode(myName + ":" + currMsg));   // Add name and send it
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }											 	// to Server
 
     public static void main(String [] args)
