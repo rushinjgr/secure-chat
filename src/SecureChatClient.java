@@ -31,7 +31,7 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
     public SecureChatClient ()
     {
         try {
-
+            System.out.println("Starting secure Chat!");
             myName = JOptionPane.showInputDialog(this, "Enter your user name: ");
             serverName = JOptionPane.showInputDialog(this, "Enter the server name: ");
             InetAddress addr =
