@@ -137,7 +137,7 @@ public class SecureChatServer {
 						encType = new String("Sub");	
 					else
 						encType = new String("Add");
-					tempWriter.writeObject(encType);
+                    tempWriter.writeObject(encType);
 					tempWriter.flush();
 						//String addKey = tempReader.readLine();
 					BigInteger bigKey = (BigInteger) tempReader.readObject();
@@ -225,7 +225,8 @@ public class SecureChatServer {
 	}   // try
 	catch (Exception e)
 	{
-		System.out.println("Something went wrong " + e);
+		e.printStackTrace();
+        System.out.println("Something went wrong " + e);
 	}
 	finally 
 	{
@@ -303,6 +304,7 @@ public class SecureChatServer {
 					catch (Exception e)
 					{
 						System.out.println("Client closing!!" + e);
+                        e.printStackTrace();
 						ok = false;
 					}
 			  }

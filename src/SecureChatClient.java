@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,8 +31,8 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
 
     public SecureChatClient ()
     {
+        System.out.println("Starting secure Chat!");
         try {
-            System.out.println("Starting secure Chat!");
             myName = JOptionPane.showInputDialog(this, "Enter your user name: ");
             serverName = JOptionPane.showInputDialog(this, "Enter the server name: ");
             InetAddress addr =
@@ -48,8 +49,10 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
             myReader = new ObjectInputStream(connection.getInputStream());
             //it receives the server's public key, e , as a BigInteger Object
             E = (BigInteger) myReader.readObject();
+            System.out.println("Server E: " + E);
             //it receives the server's public mod value, n, as a BigInteger Object
             N = (BigInteger) myReader.readObject();
+            System.out.println("Server N: " + N);
             //it receives the server's preferred symmetric cipher
             //either "Sub" or "Add"
             //as a String object
@@ -142,11 +145,18 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
         while (true)
         {
             try {
-                String currMsg = ciph.decode(myReader.readLine().getBytes());
+                byte[] incoming = (byte[]) myReader.readObject();
+                System.out.println("ENCRYPTED BYTES RECEIVED: " + new BigInteger((incoming)));
+                //I am aware this is decrypting twice
+                //This was done to meet project requirements regarding output and interface methods
+                System.out.println("DECRYPTED BYTES: " + new BigInteger(ciph.decode(incoming).getBytes()));
+                String currMsg = new String(ciph.decode(incoming));
+                System.out.println("DECODED: " + currMsg);
                 outputArea.append(currMsg+"\n");
             }
             catch (Exception e)
             {
+                e.printStackTrace();
                 System.out.println(e +  ", closing client!");
                 break;
             }
@@ -159,7 +169,13 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
         String currMsg = e.getActionCommand();	  // Get input value
         inputField.setText("");
         try {
-            myWriter.writeObject(ciph.encode(myName + ":" + currMsg));   // Add name and send it
+            String msg = (myName + ":" + currMsg);
+            System.out.println("ENCODING: " + msg);
+            System.out.println("PRE-ENCODED BYTES: " + new BigInteger(msg.getBytes()));
+            byte[] mess = ciph.encode(msg);
+            myWriter.writeObject(mess);   // Add name and send it
+            System.out.println("ENCRYPTED BYTES SENT: " + new BigInteger(mess));
+            myWriter.flush();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -167,7 +183,7 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
 
     public static void main(String [] args)
     {
-        ChatClient JR = new ChatClient();
+        SecureChatClient JR = new SecureChatClient();
         JR.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }

@@ -9,6 +9,7 @@ public class Add128 implements SymCipher{
     public Add128(){
         SecureRandom random = new SecureRandom();
         byte bytes[] = new byte[128];
+        random.nextBytes(bytes);
         key = bytes;
     }
 
@@ -17,6 +18,7 @@ public class Add128 implements SymCipher{
         if (bytekey.length != 128){
             key = null;
             System.err.println("invalid key length supplied");
+            System.err.println("supplied key is of length: " + bytekey.length);
         }
         else {
             key = bytekey;
