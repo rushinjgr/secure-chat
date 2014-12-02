@@ -1,0 +1,41 @@
+========================================
+CS/COE 1501 Assignment Information Sheet
+----------------------------------------
+
+You must submit an information sheet with every assignment.  Also be sure
+to submit all materials following the procedures described on the
+submission procedures page.
+
+Name: Justin Rushin III
+
+Lecture section:  Tu/Th 9:30 AM
+
+Recitation day and time:  FRI 2PM
+
+Assignment #:  3
+
+Program due date:   11/22/14
+
+Handed in date:  11/20/14
+
+Source code file name(s):
+Add128.java
+Substitute.java
+SymCipher.java
+SecureChatClient.java
+SecureChatServer.java
+
+Other file name(s) (if relevant):
+keys.txt
+
+Does your program run without error?:
+Yes (tested locally, not cs.unixs.cis.pitt.edu due to nature of program).
+
+If not, what is/are the error(s) and which parts of your program run
+correctly?:
+No errors observed.
+
+Additional comments to the grader:
+Used unit testing to test Add128.java, SubstituteTest.java
+Could provide test code for extra credit if applicable.
+(Did not do so as per instructions on file submission)

@@ -15,6 +15,9 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
     //changed port according to specs
     public static final int PORT = 8765;
 
+    public int messagesSent;
+    public int messagesReceived;
+
     ObjectInputStream myReader;
     ObjectOutputStream myWriter;
     JTextArea outputArea;
@@ -29,18 +32,22 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
     SymCipher ciph;
     BigInteger ciph_key;
 
-    public SecureChatClient ()
+    public SecureChatClient (String name, String server)
     {
-        System.out.println("Starting secure Chat!");
+        myName = name;
+        serverName = server;
+        messagesSent = 0;
+        messagesReceived = 0;
+        //System.out.println("Starting secure Chat!");
         try {
-            myName = JOptionPane.showInputDialog(this, "Enter your user name: ");
-            serverName = JOptionPane.showInputDialog(this, "Enter the server name: ");
+            if((myName == null) || (serverName == null)) {
+                myName = JOptionPane.showInputDialog(this, "Enter your user name: ");
+                serverName = JOptionPane.showInputDialog(this, "Enter the server name: ");
+            }
             InetAddress addr =
                     InetAddress.getByName(serverName);
             connection = new Socket(addr, PORT);   // Connect to server with new
             // Socket
-
-
             //it creates an ObjectOutputStream on the stocket for writing
             myWriter = new ObjectOutputStream(connection.getOutputStream());
             //and immediately calls the .flush() method to prevent deadlock
@@ -49,10 +56,10 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
             myReader = new ObjectInputStream(connection.getInputStream());
             //it receives the server's public key, e , as a BigInteger Object
             E = (BigInteger) myReader.readObject();
-            System.out.println("Server E: " + E);
+            //System.out.println("Server E: " + E);
             //it receives the server's public mod value, n, as a BigInteger Object
             N = (BigInteger) myReader.readObject();
-            System.out.println("Server N: " + N);
+            //System.out.println("Server N: " + N);
             //it receives the server's preferred symmetric cipher
             //either "Sub" or "Add"
             //as a String object
@@ -65,11 +72,11 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
             //storing the resulting object in a SympCipher Variable
             if(Pref.compareToIgnoreCase("Sub")==0){
                 //substitution
-                System.out.println("Substitution Encryption enabled.");
+                //System.out.println("Substitution Encryption enabled.");
                 ciph = new Substitute();
             }else{
                 //add 128
-                System.out.println("Add128 Encryption enabled.");
+                //System.out.println("Add128 Encryption enabled.");
                 ciph = new Add128();
             }
             //it gets the key from the cipher object using the getKey method
@@ -79,7 +86,7 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
             //of a Biginteger
             ciph_key = new BigInteger(1,ciph.getKey());
             //then outputs a biginteger representation of the symmetric key to console
-            System.out.println("Key: " + ciph_key);
+            //System.out.println("Key: " + ciph_key);
             //RSA encrypts BigInteger version of the key using e and n
             //sends resulting BigInteger to the server
             myWriter.writeObject(ciph_key.modPow(E,N));
@@ -146,12 +153,13 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
         {
             try {
                 byte[] incoming = (byte[]) myReader.readObject();
-                System.out.println("ENCRYPTED BYTES RECEIVED: " + new BigInteger((incoming)));
+                messagesReceived++;
+                //System.out.println("ENCRYPTED BYTES RECEIVED: " + new BigInteger((incoming)));
                 //I am aware this is decrypting twice
                 //This was done to meet project requirements regarding output and interface methods
-                System.out.println("DECRYPTED BYTES: " + new BigInteger(ciph.decode(incoming).getBytes()));
+                //System.out.println("DECRYPTED BYTES: " + new BigInteger(ciph.decode(incoming).getBytes()));
                 String currMsg = new String(ciph.decode(incoming));
-                System.out.println("DECODED: " + currMsg);
+                //System.out.println("DECODED: " + currMsg);
                 outputArea.append(currMsg+"\n");
             }
             catch (Exception e)
@@ -170,11 +178,12 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
         inputField.setText("");
         try {
             String msg = (myName + ":" + currMsg);
-            System.out.println("ENCODING: " + msg);
-            System.out.println("PRE-ENCODED BYTES: " + new BigInteger(msg.getBytes()));
+            //System.out.println("ENCODING: " + msg);
+            //System.out.println("PRE-ENCODED BYTES: " + new BigInteger(msg.getBytes()));
             byte[] mess = ciph.encode(msg);
             myWriter.writeObject(mess);   // Add name and send it
-            System.out.println("ENCRYPTED BYTES SENT: " + new BigInteger(mess));
+            messagesSent++;
+            //System.out.println("ENCRYPTED BYTES SENT: " + new BigInteger(mess));
             myWriter.flush();
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -183,7 +192,7 @@ public class SecureChatClient extends JFrame implements Runnable, ActionListener
 
     public static void main(String [] args)
     {
-        SecureChatClient JR = new SecureChatClient();
+        SecureChatClient JR = new SecureChatClient(null,null);
         JR.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }

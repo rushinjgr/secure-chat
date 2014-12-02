@@ -1,0 +1,66 @@
+time to construct cipher of key length 2^2 in nanos: 437226
+time to construct cipher of key length 2^3 in nanos: 44921
+time to construct cipher of key length 2^4 in nanos: 45957
+time to construct cipher of key length 2^5 in nanos: 80174
+time to construct cipher of key length 2^6 in nanos: 172620
+time to construct cipher of key length 2^7 in nanos: 464111
+time to construct cipher of key length 2^8 in nanos: 460413
+time to construct cipher of key length 2^9 in nanos: 453087
+time to construct cipher of key length 2^10 in nanos: 537918
+time to construct cipher of key length 2^11 in nanos: 837640
+time to construct cipher of key length 2^12 in nanos: 1093599
+time to construct cipher of key length 2^13 in nanos: 1802280
+time to construct cipher of key length 2^14 in nanos: 3490901
+time to construct cipher of key length 2^15 in nanos: 7584803
+time to construct cipher of key length 2^16 in nanos: 14040358
+time to construct cipher of key length 2^17 in nanos: 27058893
+time to construct cipher of key length 2^18 in nanos: 54535541
+time to construct cipher of key length 2^19 in nanos: 109897771
+time to construct cipher of key length 2^20 in nanos: 223522683
+time to construct cipher of key length 2^21 in nanos: 449421416
+time to construct cipher of key length 2^22 in nanos: 894299284
+time to construct cipher of key length 2^23 in nanos: 1798473263
+time to encrypt with cipher of key length 2^2 in nanos: 14310
+time to encrypt with cipher of key length 2^3 in nanos: 12926
+time to encrypt with cipher of key length 2^4 in nanos: 13045
+time to encrypt with cipher of key length 2^5 in nanos: 13010
+time to encrypt with cipher of key length 2^6 in nanos: 12884
+time to encrypt with cipher of key length 2^7 in nanos: 13129
+time to encrypt with cipher of key length 2^8 in nanos: 13184
+time to encrypt with cipher of key length 2^9 in nanos: 13288
+time to encrypt with cipher of key length 2^10 in nanos: 13184
+time to encrypt with cipher of key length 2^11 in nanos: 13347
+time to encrypt with cipher of key length 2^12 in nanos: 13335
+time to encrypt with cipher of key length 2^13 in nanos: 12300
+time to encrypt with cipher of key length 2^14 in nanos: 12367
+time to encrypt with cipher of key length 2^15 in nanos: 14791
+time to encrypt with cipher of key length 2^16 in nanos: 15654
+time to encrypt with cipher of key length 2^17 in nanos: 15561
+time to encrypt with cipher of key length 2^18 in nanos: 14543
+time to encrypt with cipher of key length 2^19 in nanos: 15075
+time to encrypt with cipher of key length 2^20 in nanos: 28698
+time to encrypt with cipher of key length 2^21 in nanos: 16610
+time to encrypt with cipher of key length 2^22 in nanos: 15914
+time to encrypt with cipher of key length 2^23 in nanos: 22907
+time to decrypt with cipher of key length 2^2 in nanos: 10424
+time to decrypt with cipher of key length 2^3 in nanos: 12707
+time to decrypt with cipher of key length 2^4 in nanos: 12833
+time to decrypt with cipher of key length 2^5 in nanos: 9283
+time to decrypt with cipher of key length 2^6 in nanos: 11923
+time to decrypt with cipher of key length 2^7 in nanos: 12987
+time to decrypt with cipher of key length 2^8 in nanos: 35539
+time to decrypt with cipher of key length 2^9 in nanos: 10183
+time to decrypt with cipher of key length 2^10 in nanos: 12801
+time to decrypt with cipher of key length 2^11 in nanos: 12201
+time to decrypt with cipher of key length 2^12 in nanos: 11291
+time to decrypt with cipher of key length 2^13 in nanos: 12243
+time to decrypt with cipher of key length 2^14 in nanos: 12853
+time to decrypt with cipher of key length 2^15 in nanos: 12744
+time to decrypt with cipher of key length 2^16 in nanos: 15604
+time to decrypt with cipher of key length 2^17 in nanos: 15938
+time to decrypt with cipher of key length 2^18 in nanos: 15738
+time to decrypt with cipher of key length 2^19 in nanos: 15569
+time to decrypt with cipher of key length 2^20 in nanos: 17237
+time to decrypt with cipher of key length 2^21 in nanos: 16397
+time to decrypt with cipher of key length 2^22 in nanos: 15423
+time to decrypt with cipher of key length 2^23 in nanos: 17084

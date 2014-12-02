@@ -28,6 +28,8 @@ Test Plan
 |	|-SecureChatServer Memory Use   
 |	|-SecureChatClient Memory Use   
 |	|-SecureChatClient Response Time   
+|   |Compare response times (defined as the amount of wall time between:   
+|   |
 |	   
 |-Security Testing  
 |	|-Attempt to bruteforce keys of varying bit lengths.   

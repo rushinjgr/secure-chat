@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SecureChat:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SecureChat_jar</output-path>
+    <root id="archive" name="SecureChat.jar">
+      <element id="module-output" name="SecureChat" />
+      <element id="extracted-dir" path="/usr/share/java/junit4-4.11.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

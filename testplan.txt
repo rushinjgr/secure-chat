@@ -1,0 +1,41 @@
+Test Plan   
+|   
+|-Performance Test Suite   
+|	|   
+|	|-128 Bit Encryption    
+|	|-Substitute Encryption   
+|	|-SecureChatServer Memory Use   
+|	|-SecureChatClient Memory Use   
+|	|-SecureChatClient Response Time   
+|   |Compare response times (defined as the amount of wall time between:   
+|   |
+|	   
+|-Security Testing  
+|	|-Attempt to bruteforce keys of varying bit lengths.   
+|	|	|- Perform tests multiple times, get average length to bruteforce.   
+|	|-Attempt to pull unecrypted messages from the wire (application has ability to send unencrypted messages)
+
+Performance Testing Suite
+
+Response Time Testing - SecureChatClientPerfTest.java
+Uses several util methods to test the amount of time it takes for:
+-Client to send the already encrypted message to the server.
+-Time for the server to receive, decrypt, process, re-encrypt, and send the message back to the sender.
+-Time for the client to acknowledge but not decrypt the message.
+Hereafter referred to as the "response time."
+The setup used to acheive this testing was as follows:
+All instances of the client were run on my laptop: an Acer TimelineU M5 running Ubuntu 14.04 64 bit. Java 1.6 is used as this project was developed to meet Pitt unix server specs.
+For these tests the server is running on a desktop workstation on my home network.
+.responseTime100_wrapper()
+Tests the response time of the network server vs a copy of the server running on localhost (laptop)
+.responseTime100_load20()
+Same as above, but creates 20 (vs server limit of 30) clients running on the laptop PER each server (40 + 2 sending messages total) and measures response time.
+For the localhost server, this is also potentially a de facto memory load test.
+
+Additive Encryption - Encrypt/Decrypt Performance w.r.t Key Length
+
+SecureChatServer Memory Use w.r.t. 
+During the response time testing server memory usage will be measured with perfmon.
+
+
+
